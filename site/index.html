@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hi, It's Me — Remember everyone. Forget nothing.</title>
+<meta name="description" content="The relationship intelligence app. Scan a card, follow up in 10 seconds, never lose a connection again. 8 languages. iOS.">
+<meta property="og:title" content="Hi, It's Me — Remember everyone. Forget nothing.">
+<meta property="og:description" content="Executives have assistants to manage their relationships. Now everyone does.">
+<link rel="preload" href="assets/me_logo_white_transparent.png" as="image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Hi, It's Me  v7 */
+:root{--gold:#c9913d;--gold-lt:#e0b060;--gold-glow:rgba(201,145,61,.30);--gold-dim:rgba(201,145,61,.09);--purple:#9b7fe8;--danger:#e05c5c;--r:cubic-bezier(.16,1,.3,1);--t:.45s var(--r)}
+[data-theme="dark"]{--bg:#07070a;--bg2:#0c0c11;--bg3:#111119;--surf:#141420;--surf2:#1a1a28;--surf3:#20202f;--bdr:rgba(255,255,255,.06);--bdr2:rgba(255,255,255,.12);--tx:#ede9e0;--tx2:#b8b4a8;--tx3:#706c66;--glow:radial-gradient(ellipse 80% 55% at 50% 38%,rgba(201,145,61,.07) 0%,transparent 68%)}
+[data-theme="light"]{--bg:#faf8f4;--bg2:#f2ede4;--bg3:#e8e3d8;--surf:#fff;--surf2:#f5f0e8;--surf3:#ece7de;--bdr:rgba(0,0,0,.07);--bdr2:rgba(0,0,0,.14);--tx:#0f0e0c;--tx2:#5a5650;--tx3:#9a968e;--gold:#a06c1e;--gold-lt:#b87a28;--gold-glow:rgba(160,108,30,.22);--gold-dim:rgba(160,108,30,.08);--glow:radial-gradient(ellipse 80% 55% at 50% 38%,rgba(160,108,30,.06) 0%,transparent 68%)}
+[data-theme="light"] .nav-cta,[data-theme="light"] .hero-cta,[data-theme="light"] .pbtn-pro,[data-theme="light"] .pbtn-plus{color:#fff}
+[data-theme="light"] .pcard-pro::before,[data-theme="light"] .pcard-plus::before{color:#fff}
+[data-theme="light"] .nav-logo img,[data-theme="light"] .foot-brand img{filter:brightness(0);opacity:.75}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+strong.brand{font-weight:600;color:var(--tx);font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.2px}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background var(--t),color var(--t)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.wrap-sm{max-width:660px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block}
+.gold-rule{display:block;width:36px;height:1px;background:var(--gold);margin:0 auto 16px;opacity:.55}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .72s var(--r),transform .72s var(--r)}
+.reveal.show{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4.5vw,50px);font-weight:700;line-height:1.15;letter-spacing:-.5px;margin-top:12px}
+.sec-h em{font-style:italic;color:var(--gold-lt)}
+.sec-sub{font-size:15px;color:var(--tx2);line-height:1.75;max-width:440px;margin:12px auto 0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(32px) saturate(1.8);border-bottom:1px solid var(--bdr);transition:background var(--t)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:20px;width:auto;filter:brightness(0) invert(1);opacity:.9}
+.nav-logo span{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--tx)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a:not(.nav-cta){color:var(--tx2);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:not(.nav-cta):hover{color:var(--tx)}
+.theme-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--bdr2);background:var(--surf);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s}
+.theme-btn:hover{border-color:var(--gold)}
+.nav-cta{background:var(--gold);color:#fff;padding:8px 20px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none;transition:all .2s}
+.nav-cta:hover{box-shadow:0 4px 18px var(--gold-glow);transform:translateY(-1px)}
+.nav-cta-soon{cursor:default;opacity:.85}
+.nav-cta-soon:hover{box-shadow:none !important;transform:none !important}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:var(--glow);pointer-events:none}
+.stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:opacity 1.8s cubic-bezier(.4,0,.2,1);background:var(--bg)}
+.stage.out{opacity:0;pointer-events:none}
+.stage-greeting{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,3.2vw,34px);font-style:italic;font-weight:300;color:var(--tx2);letter-spacing:3px;margin-bottom:2px;opacity:0;transform:translateY(8px);transition:opacity .7s ease,transform .7s ease}
+[data-theme="light"] .stage-greeting.show{color:var(--tx);opacity:.75}
+.stage-greeting.show{opacity:1;transform:translateY(0)}
+.stage-name{font-family:'Cormorant Garamond','Noto Naskh Arabic','Noto Sans SC','Noto Sans JP',serif;font-size:clamp(100px,22vw,240px);font-weight:700;font-style:italic;color:var(--gold);line-height:.85;letter-spacing:-6px;display:block;text-align:center;will-change:opacity}
+.stage-logo{width:min(300px,64vw);height:auto;position:absolute;opacity:0;top:52%;transform:translateY(-50%);filter:drop-shadow(0 0 28px rgba(201,145,61,1)) drop-shadow(0 0 65px rgba(201,145,61,.65)) drop-shadow(0 0 140px rgba(201,145,61,.30)) drop-shadow(0 0 280px rgba(201,145,61,.13));transition:opacity 0.25s ease}
+[data-theme="light"] .stage-logo{filter:drop-shadow(0 0 28px rgba(160,108,30,.9)) drop-shadow(0 0 65px rgba(160,108,30,.5)) drop-shadow(0 0 140px rgba(160,108,30,.2))}
+.hero-body{opacity:0;transform:translateY(22px);transition:opacity 1s ease,transform 1s ease;max-width:600px;pointer-events:none}
+.hero-body.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.hero.compact{min-height:auto;padding:96px 24px 52px;justify-content:flex-start;align-items:center}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8.5vw,96px);font-weight:700;line-height:1;letter-spacing:-3px}
+.hero-h1 em{font-style:italic;color:var(--gold-lt)}
+.hero-sub{font-size:clamp(15px,1.6vw,17px);color:var(--tx2);line-height:1.8;margin-top:20px;font-weight:300;max-width:440px;margin-left:auto;margin-right:auto}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:var(--gold);color:#fff;padding:16px 40px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;transition:all .25s;position:relative;overflow:hidden}
+.hero-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 55%);border-radius:inherit}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px var(--gold-glow)}
+.hero-cta svg{width:18px;height:18px;flex-shrink:0}
+.hero-proof{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:16px;flex-wrap:wrap;padding-bottom:48px}
+.hp-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx3)}
+.hp-item svg{width:13px;height:13px;flex-shrink:0}
+.scroll-cue{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;transition:opacity .8s}
+.scroll-cue span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--tx3)}
+.scroll-line{width:1px;height:28px;background:linear-gradient(var(--gold),transparent);animation:drip 2s ease-in-out infinite}
+@keyframes drip{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1)}}
+
+/* OPENING — tightened to 2 punchy sentences */
+.opening{padding:80px 24px 0}
+.opening-inner{max-width:580px;margin:0 auto;text-align:center}
+.opening-q{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,30px);font-weight:400;font-style:italic;line-height:1.7;color:var(--tx);position:relative;padding:0 16px}
+.opening-q::before{content:'";';position:absolute;left:-6px;top:-22px;font-size:80px;color:var(--gold);opacity:.18;font-style:normal;line-height:1}
+.opening-attr{margin-top:16px;font-size:13px;color:var(--tx3);letter-spacing:.5px}
+
+/* STATS */
+.stats{padding:68px 24px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;padding:26px 16px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.stat:hover{border-color:var(--bdr2);transform:translateY(-3px)}
+.stat:hover::after{opacity:1}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:var(--gold);line-height:1}
+.stat-l{font-size:11.5px;color:var(--tx2);margin-top:8px;line-height:1.55}
+
+/* GAP */
+.gap-sec{padding:80px 24px;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);transition:background var(--t);text-align:center}
+.gap-lines{margin-top:32px}
+.gap-line{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(17px,3.4vw,32px);font-weight:400;line-height:1.4;color:var(--tx2);margin-bottom:2px}
+.gap-has{color:var(--tx2)}
+.gap-missing{font-size:clamp(22px,4.5vw,42px);font-weight:700;color:var(--tx);margin-top:20px;line-height:1.18;letter-spacing:-.3px}
+.gap-missing em{font-style:italic;color:var(--gold-lt)}
+.gap-body{font-size:16px;color:var(--tx2);line-height:1.85;margin-top:24px;max-width:520px;margin-left:auto;margin-right:auto}
+[data-theme="dark"] .gap-body{color:#b0ac9f}
+.gap-em{color:var(--gold);font-weight:600;margin-top:20px;font-size:17px;display:block}
+
+/* STORY — moved up, before How it works */
+.story{padding:0 24px 80px}
+.story-inner{max-width:620px;margin:0 auto}
+.story-inner p{font-size:16px;color:var(--tx2);line-height:1.9;margin-top:18px}
+[data-theme="dark"] .story-inner p{color:#b0ac9f}
+.story-inner p:last-child{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;color:var(--gold-lt);font-weight:400;margin-top:24px}
+/* Specific and personal founder moment */
+.story-moment{background:var(--surf);border:1px solid var(--bdr);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:18px 22px;margin-top:22px;font-size:15px;color:var(--tx2);line-height:1.7;font-style:italic}
+[data-theme="dark"] .story-moment{color:#b0ac9f}
+
+/* PROOF STRIP */
+.proof{padding:20px 24px;text-align:center;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.proof p{font-size:11px;color:var(--tx2);letter-spacing:1.5px;text-transform:uppercase}
+.proof strong{color:var(--tx2);font-weight:600}
+
+/* HOW IT WORKS */
+.how{padding:80px 24px}
+.sec-head{text-align:center;margin-bottom:48px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.step{background:var(--surf);border:1px solid var(--bdr);padding:30px 18px;text-align:center;transition:all .3s}
+.step:first-child{border-radius:18px 0 0 18px}
+.step:last-child{border-radius:0 18px 18px 0}
+.step:hover{background:var(--surf2);border-color:var(--gold);z-index:2;transform:translateY(-5px)}
+.step-n{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);opacity:.18;line-height:1}
+.step-ico{font-size:22px;margin:7px 0 11px}
+.step h3{font-size:13.5px;font-weight:600;margin-bottom:6px}
+.step p{font-size:12px;color:var(--tx2);line-height:1.65}
+.step-badge{display:inline-block;margin-top:10px;padding:2px 9px;border-radius:999px;background:var(--gold-dim);color:var(--gold);font-size:10px;font-weight:600}
+
+/* WOW CARD */
+.wow{padding:0 24px 80px}
+.wow-card{background:linear-gradient(135deg,var(--surf) 0%,var(--surf2) 100%);border:1px solid var(--gold);border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.wow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-lt),var(--gold),transparent)}
+.wow-card::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 80% at 100% 50%,var(--gold-dim) 0%,transparent 70%)}
+.wow-ey{font-size:10px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.wow-h{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.2vw,38px);font-weight:700;line-height:1.18;letter-spacing:-.5px;margin-bottom:14px}
+.wow-p{font-size:14px;color:var(--tx2);line-height:1.8}
+.wow-p em{font-style:italic;color:var(--tx)}
+[data-theme="dark"] .wow-p{color:#b0ac9f}
+.wow-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.chip{font-size:11px;padding:5px 12px;border-radius:999px;font-weight:600;border:1px solid}
+.phone-wrap{display:flex;justify-content:center;position:relative;z-index:1}
+.phone{width:196px;background:var(--bg3);border:4px solid var(--surf3);border-radius:32px;overflow:hidden;box-shadow:0 32px 72px rgba(0,0,0,.5),0 0 0 1px var(--bdr),0 0 50px rgba(201,145,61,.07)}
+.phone-bar{width:34%;height:15px;background:var(--surf3);border-radius:0 0 9px 9px;margin:0 auto}
+.phone-screen{padding:10px 12px 14px}
+.ph-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.ph-app{font-size:9px;font-weight:700;color:var(--tx3);letter-spacing:.5px}
+.ph-dot{font-size:8px;color:var(--gold)}
+.ph-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ph-av{width:34px;height:34px;border-radius:50%;background:var(--gold-dim);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,145,61,.3);flex-shrink:0}
+.ph-name{font-size:10.5px;font-weight:600;color:var(--tx)}
+.ph-role{font-size:9px;color:var(--tx3);margin-top:1px}
+.bub{font-size:9.5px;line-height:1.45;padding:8px 10px;border-radius:12px;margin-bottom:6px}
+.bub-ai{background:var(--surf2);color:var(--tx2);font-style:italic;border-radius:12px 12px 12px 3px;max-width:88%}
+.bub-out{background:var(--gold);color:#000;font-weight:500;border-radius:12px 12px 3px 12px;margin-left:auto;max-width:93%}
+.ph-btn{width:100%;background:var(--gold-dim);border:1px solid rgba(201,145,61,.3);color:var(--gold);border-radius:10px;padding:8px;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:5px;margin-top:8px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s}
+.ph-btn:hover{background:var(--gold);color:#000}
+
+/* FEATURES */
+.feats{padding:0 24px 80px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.feat-grid>*{min-width:0}
+.feat{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;padding:26px;transition:all .3s;position:relative;overflow:hidden;min-width:0;word-break:break-word;overflow-wrap:break-word}
+.feat::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,var(--gold-dim),transparent 55%);opacity:0;transition:opacity .3s}
+.feat:hover{border-color:var(--bdr2);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.14)}
+.feat:hover::before{opacity:1}
+.feat-ico{font-size:20px;margin-bottom:12px}
+.feat h3{font-size:14.5px;font-weight:600;margin-bottom:7px;overflow-wrap:break-word}
+.feat p{font-size:12.5px;color:var(--tx2);line-height:1.75;hyphens:auto;-webkit-hyphens:auto}
+.feat-tag{display:inline-block;margin-top:10px;padding:2px 8px;border-radius:999px;font-size:9.5px;font-weight:600;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,145,61,.18)}
+.feat-tag.pro{background:rgba(155,127,232,.09);color:var(--purple);border-color:rgba(155,127,232,.18)}
+.feat-tag.proplus{background:rgba(224,92,92,.08);color:var(--danger);border-color:rgba(224,92,92,.18)}
+
+/* INTELLIGENCE */
+.intel{padding:0 24px 80px}
+.intel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:48px}
+.icard{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;padding:26px;transition:all .3s;min-width:0;overflow-wrap:break-word}
+.icard:hover{border-color:var(--bdr2)}
+.icard-ico{font-size:20px;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--gold-dim);margin-bottom:12px}
+.icard h3{font-size:14px;font-weight:600;margin-bottom:7px}
+.icard p{font-size:12.5px;color:var(--tx2);line-height:1.75}
+[data-theme="dark"] .icard p{color:#a8a49a}
+.states{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.state{font-size:10.5px;padding:3px 9px;border-radius:999px;font-weight:600;border:1px solid}
+
+/* LANGUAGES */
+.langs{padding:0 24px 80px;text-align:center}
+.lang-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.lang{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:24px;padding:13px 10px;background:var(--surf);border:1px solid var(--bdr);border-radius:13px;min-width:64px;transition:all .2s}
+.lang:hover{border-color:var(--gold);transform:translateY(-3px)}
+.lang span{font-size:9.5px;color:var(--tx3);font-weight:500}
+
+/* TESTIMONIALS */
+.testi{padding:0 0 80px;overflow:hidden}
+.testi-head{text-align:center;padding:0 24px 44px}
+.track-wrap{overflow:hidden;position:relative}
+.track-wrap::before,.track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:10;pointer-events:none}
+.track-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.track-wrap::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.track{display:flex;gap:14px;animation:marquee 90s linear infinite;width:max-content}
+.track:hover{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tcard{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;padding:24px;width:300px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;transition:border-color .3s}
+.tcard:hover{border-color:var(--bdr2)}
+.tcard-stars{color:var(--gold);font-size:12px;letter-spacing:1.5px}
+.tcard-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.65;color:var(--tx);flex:1}
+.tcard-meta{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--bdr)}
+.tcard-av{width:32px;height:32px;border-radius:50%;background:var(--gold-dim);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,145,61,.18);flex-shrink:0}
+.tcard-name{font-size:12px;font-weight:600;color:var(--tx)}
+.tcard-role{font-size:10.5px;color:var(--tx3);margin-top:1px}
+
+/* PRICING */
+.pricing{padding:0 24px 80px}
+.price-intro{text-align:center;max-width:500px;margin:0 auto 48px}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pcard{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:30px 24px;position:relative;transition:all .3s;display:flex;flex-direction:column}
+.pcard:hover{border-color:var(--bdr2);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.14)}
+.pcard-pro{border-color:var(--gold)}.pcard-pro:hover{box-shadow:0 12px 40px rgba(201,145,61,.14)}
+.pcard-plus{border-color:var(--purple)}.pcard-plus:hover{box-shadow:0 12px 40px rgba(155,127,232,.14)}
+.pcard-pro::before{content:'Most Popular';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:3px 14px;border-radius:999px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+.pcard-plus::before{content:'Unlimited';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--purple);color:#fff;padding:3px 14px;border-radius:999px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.ptier{font-size:11px;font-weight:600;color:var(--tx2);letter-spacing:1.5px;text-transform:uppercase}
+.pval{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;line-height:1;margin:8px 0 2px}
+.pval sup{font-size:18px;vertical-align:super;font-weight:400;margin-right:1px}
+.pval sub{font-size:13px;font-weight:400;font-family:'DM Sans',sans-serif;color:var(--tx3)}
+.pnote{font-size:11px;color:var(--tx3);margin-bottom:18px}
+.pdiv{border:none;border-top:1px solid var(--bdr);margin:14px 0}
+.plist{list-style:none;flex:1;margin-bottom:20px}
+.plist li{font-size:12.5px;color:var(--tx2);padding:5px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.35}
+.chk{font-weight:700;font-size:11px;flex-shrink:0;margin-top:1px;color:var(--gold)}
+.chk-pu{color:var(--purple)}
+.plimit{font-size:10.5px;color:var(--tx3);margin-left:1px}
+.pbtn{display:block;width:100%;text-align:center;padding:12px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif}
+.pbtn-free{background:var(--surf2);color:var(--tx);border:1px solid var(--bdr2)}.pbtn-free:hover{background:var(--surf3)}
+.pbtn-pro{background:var(--gold);color:#fff}.pbtn-pro:hover{box-shadow:0 4px 18px var(--gold-glow);transform:translateY(-1px)}
+.pbtn-plus{background:var(--purple);color:#fff}.pbtn-plus:hover{box-shadow:0 4px 18px rgba(155,127,232,.3);transform:translateY(-1px)}
+.price-foot{text-align:center;font-size:12px;color:var(--tx2);margin-top:16px}
+.price-foot strong{color:var(--gold)}
+
+/* VISION + CTA */
+.vision{padding:0 24px 80px;text-align:center;max-width:640px;margin:0 auto}
+.vision-q{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,26px);font-weight:300;font-style:italic;line-height:1.82;color:var(--tx)}
+.vision-cap{font-size:11px;color:var(--gold);margin-top:18px;font-weight:600;letter-spacing:3px;text-transform:uppercase}
+.final-cta{padding:80px 24px;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:var(--glow);pointer-events:none}
+.final-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,64px);font-weight:700;letter-spacing:-1px;line-height:1.1}
+.final-cta h2 em{font-style:italic;color:var(--gold-lt)}
+.final-cta p{color:var(--tx2);font-size:16px;margin-top:16px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.75}
+.investor{margin-top:20px;font-size:11.5px;color:var(--tx3)}
+.investor a{color:var(--gold);text-decoration:none;font-weight:600}
+
+/* FOOTER */
+footer{padding:28px 40px;border-top:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.foot-brand{display:flex;align-items:center;gap:8px}
+.foot-brand img{height:15px;opacity:.35;filter:brightness(0) invert(1)}
+.foot-brand span{font-size:11px;color:var(--tx3)}
+.foot-links{display:flex;gap:18px}
+.foot-links a{font-size:11px;color:var(--tx3);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--tx2)}
+
+/* REMI */
+.remi-sec{padding:80px 24px;background:linear-gradient(135deg,var(--bg2) 0%,var(--bg) 100%);transition:background var(--t)}
+.remi-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.remi-left{}
+.remi-intro{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.remi-wave{font-size:42px;animation:wave 2.2s ease-in-out infinite;display:inline-block;transform-origin:70% 70%}
+@keyframes wave{0%,100%{transform:rotate(0deg)}20%{transform:rotate(22deg)}40%{transform:rotate(-8deg)}60%{transform:rotate(18deg)}80%{transform:rotate(-4deg)}}
+.remi-name{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,54px);font-weight:700;font-style:italic;color:var(--gold);line-height:1}
+.remi-name span{color:var(--tx);font-style:normal}
+.remi-tag{font-size:10px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.remi-h{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.8vw,42px);font-weight:700;line-height:1.18;letter-spacing:-.4px;margin-bottom:16px}
+.remi-h em{font-style:italic;color:var(--gold-lt)}
+.remi-p{font-size:15px;color:var(--tx2);line-height:1.85;margin-bottom:24px}
+[data-theme="dark"] .remi-p{color:#b0ac9f}
+.remi-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
+.remi-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--tx2);line-height:1.5}
+[data-theme="dark"] .remi-bullets li{color:#b0ac9f}
+.remi-bullets li::before{content:'›';color:var(--gold);font-size:18px;font-weight:700;line-height:1.1;flex-shrink:0}
+.remi-badge{display:inline-flex;align-items:center;gap:7px;margin-top:22px;padding:8px 16px;border-radius:999px;background:rgba(155,127,232,.1);border:1px solid rgba(155,127,232,.25);color:var(--purple);font-size:12px;font-weight:600}
+.remi-chat{background:var(--surf);border:1px solid var(--bdr);border-radius:22px;padding:24px;position:relative;overflow:hidden}
+.remi-chat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.remi-chat-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--bdr)}
+.remi-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#7c5cbf);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#fff;flex-shrink:0}
+.remi-av-name{font-size:13px;font-weight:600;color:var(--tx)}
+.remi-av-status{font-size:10px;color:var(--purple);display:flex;align-items:center;gap:4px}
+.remi-av-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple);display:inline-block}
+.chat-msg{margin-bottom:10px}
+.chat-remi{background:var(--surf2);border-radius:14px 14px 14px 3px;padding:10px 14px;font-size:13px;line-height:1.6;color:var(--tx);max-width:88%;display:inline-block}
+[data-theme="dark"] .chat-remi{color:#d8d4cc}
+.chat-user{background:var(--purple);border-radius:14px 14px 3px 14px;padding:10px 14px;font-size:13px;line-height:1.6;color:#fff;max-width:88%;display:inline-block;margin-left:auto;float:right}
+.chat-clear{clear:both}
+.chat-input{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr)}
+.chat-input-bar{flex:1;background:var(--bg3);border:1px solid var(--bdr2);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--tx3);font-family:'DM Sans',sans-serif}
+.chat-send{width:32px;height:32px;border-radius:8px;background:var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send svg{width:14px;height:14px;fill:#fff}
+
+/* RESPONSIVE — Remi */
+/* RESPONSIVE */
+@media(max-width:900px){
+  .remi-inner{grid-template-columns:1fr;gap:36px}
+  .price-grid{grid-template-columns:1fr;max-width:380px;margin-left:auto;margin-right:auto}
+  .wow-card{grid-template-columns:1fr;padding:32px;gap:32px}
+  .intel-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  nav{padding:12px 18px}
+  .nav-links a:not(.nav-cta):not(.theme-btn){display:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .steps{grid-template-columns:1fr 1fr;gap:4px}
+  .step:first-child{border-radius:14px 0 0 0}
+  .step:nth-child(2){border-radius:0 14px 0 0}
+  .step:nth-child(3){border-radius:0 0 0 14px}
+  .step:last-child{border-radius:0 0 14px 0}
+  .feat-grid{grid-template-columns:1fr}
+  .lang-row{gap:6px}
+  .lang{min-width:58px;padding:11px 8px}
+  footer{flex-direction:column;gap:12px;text-align:center}
+  .hero-h1{letter-spacing:-2px}
+  .wow-card{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="assets/me_logo_white_transparent.png" alt="Hi, It's Me">
+    <span>Hi, It's Me</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">☀️</button>
+    <span class="nav-cta nav-cta-soon">Coming Soon</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="stage" id="stage">
+    <div class="stage-greeting" id="greeting">Hi, it&#8217;s</div>
+    <div class="stage-name" id="stage-name">Jesse</div>
+    <img class="stage-logo" id="stage-logo" src="assets/me_logo_white_transparent.png" alt="me">
+  </div>
+  <div class="hero-body" id="hero-body">
+    <h1 class="hero-h1">Remember <em>everyone.</em><br>Forget nothing.</h1>
+    <p class="hero-sub">Executives have assistants to manage their relationships.<br>Now everyone has <strong style="color:var(--tx);font-weight:600">Hi, It&#8217;s Me</strong>.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px">
+    <div class="hero-cta hero-cta-soon" style="cursor:default;opacity:.9;margin-top:0">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Coming Soon on iOS
+    </div>
+    <div class="hero-cta hero-cta-soon" style="cursor:default;opacity:.9;margin-top:0">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341l-.823-1.424a5.445 5.445 0 001.12-3.384 5.445 5.445 0 00-1.12-3.384l.823-1.424A7.432 7.432 0 0119.5 10.533a7.432 7.432 0 01-1.977 4.808zm-11.046 0A7.432 7.432 0 014.5 10.533a7.432 7.432 0 011.977-4.808l.823 1.424a5.445 5.445 0 00-1.12 3.384 5.445 5.445 0 001.12 3.384l-.823 1.424zM8.352 3.13L7.5 1.65A9.432 9.432 0 0112 .5a9.432 9.432 0 014.5 1.15l-.852 1.48A7.432 7.432 0 0012 2.5a7.432 7.432 0 00-3.648.63zM3 17h18v2H3zm3-6h2v3H6zm7 0h2v3h-2zm-3.5 0h2v3h-2z"/></svg>
+      Coming Soon on Android
+    </div>
+  </div>
+    <div class="hero-proof">
+      <div class="hp-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+        <span>8 languages</span>
+      </div>
+      <div class="hp-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Free to start</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" id="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- OPENING QUOTE — tightened to 2 sentences -->
+<section class="opening reveal">
+  <div class="opening-inner">
+    <p class="opening-q">The right person walked into your life last week. You just haven&#8217;t followed up yet.</p>
+    <p class="opening-attr">Not because you didn&#8217;t care. Because no tool was ever built to help you.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats wrap reveal">
+  <div class="stats-grid">
+    <div class="stat reveal d1"><div class="stat-n">85%</div><div class="stat-l">of jobs filled through personal connections — not applications</div></div>
+    <div class="stat reveal d2"><div class="stat-n">4×</div><div class="stat-l">Increase in adults with zero close friends since 1990</div></div>
+    <div class="stat reveal d3"><div class="stat-n">9</div><div class="stat-l">Meaningful relationships the average person loses each decade</div></div>
+    <div class="stat reveal d4"><div class="stat-n">28%</div><div class="stat-l">of business lost when executives stop nurturing their circle</div></div>
+  </div>
+</section>
+
+<!-- GAP -->
+<section class="gap-sec reveal">
+  <div class="wrap-sm">
+    <span class="gold-rule"></span>
+    <span class="eyebrow" style="text-align:center;display:block">The gap no one has filled</span>
+    <div class="gap-lines">
+      <span class="gap-line gap-has">Social media gives us a way to collect connections.</span>
+      <span class="gap-line gap-has">Messaging apps give us a way to reach them.</span>
+      <span class="gap-line gap-missing">But nothing gives our connections<br><em>depth, meaning, or value.</em></span>
+    </div>
+    <p class="gap-body">We&#8217;ve built incredible tools for volume — thousands of followers, instant messages, global reach. What we haven&#8217;t built is the tool that turns those connections into something real. That remembers why someone matters. That tells you when to reach out. That helps you show up in a way that actually means something.</p>
+    <span class="gap-em">That&#8217;s the gap <strong class="brand">Hi, It&#8217;s Me</strong> fills.</span>
+  </div>
+</section>
+
+<!-- STORY — moved up, right after the gap, before How it works -->
+<section class="story reveal">
+  <div class="story-inner">
+    <span class="gold-rule"></span>
+    <span class="eyebrow" style="text-align:left;display:block">Why we built this</span>
+    <p>We all operate in three circles — professional, social, and family. Each demands something different. All of them suffer when follow-through fails.</p>
+    <div class="story-moment">In one week, we watched a colleague lose a partnership worth months of work because a follow-up didn&#8217;t get sent. A student let three warm referrals go cold. An executive confessed she manages relationships worth millions — with sticky notes.</div>
+    <p>The tools to send a message exist. The tools to truly know the people you&#8217;re sending it to — in every language, at the right moment — didn&#8217;t. So we built one.</p>
+    <p>That became <strong class="brand">Hi, It&#8217;s Me</strong>.</p>
+  </div>
+</section>
+
+<div class="proof">
+  <p>Built in <strong>Casablanca</strong>&nbsp;&nbsp;·&nbsp;&nbsp;For the world</p>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how reveal" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="gold-rule"></span>
+      <span class="eyebrow">How it works</span>
+      <h2 class="sec-h">Handshake to follow-up.<br>Under 10 seconds.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal d1"><div class="step-n">1</div><div class="step-ico">📸</div><h3>Capture</h3><p>Scan a card, type it, or speak it. AI extracts every field instantly.</p><span class="step-badge">2 sec</span></div>
+      <div class="step reveal d2"><div class="step-n">2</div><div class="step-ico">✍️</div><h3>Draft</h3><p>A personalised follow-up in their language and your voice — ready to review.</p><span class="step-badge">3 sec</span></div>
+      <div class="step reveal d3"><div class="step-n">3</div><div class="step-ico">💬</div><h3>Send</h3><p>WhatsApp, iMessage, Signal, Messenger, Email. One tap.</p><span class="step-badge">2 sec</span></div>
+      <div class="step reveal d4"><div class="step-n">4</div><div class="step-ico">🧠</div><h3>Grow</h3><p>Every note and meeting builds a living profile. Smarter with every use.</p><span class="step-badge">Always</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WOW FEATURE -->
+<section class="wow reveal" id="features">
+  <div class="wrap">
+    <div class="wow-card">
+      <div>
+        <p class="wow-ey">The signature moment</p>
+        <h2 class="wow-h">&#8220;Hi, it&#8217;s me, Jesse &#8212;<br>great meeting you.&#8221;</h2>
+        <p class="wow-p">The second you save a new contact the app drafts a warm, personalised first message &#8212; signed with your name, tailored to the context. <em>This is what the app is named after.</em> Pick your channel, tap Send. Done before you&#8217;ve left the conversation.</p>
+        <div class="wow-chips">
+          <span class="chip" style="background:rgba(37,211,102,.11);color:#25d366;border-color:rgba(37,211,102,.22)">WhatsApp</span>
+          <span class="chip" style="background:rgba(52,199,89,.11);color:#34c759;border-color:rgba(52,199,89,.22)">iMessage</span>
+          <span class="chip" style="background:rgba(58,118,240,.11);color:#3a76f0;border-color:rgba(58,118,240,.22)">Signal</span>
+          <span class="chip" style="background:rgba(0,132,255,.11);color:#0084ff;border-color:rgba(0,132,255,.22)">Messenger</span>
+          <span class="chip" style="background:rgba(139,92,246,.11);color:#8b5cf6;border-color:rgba(139,92,246,.22)">Email</span>
+        </div>
+      </div>
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-bar"></div>
+          <div class="phone-screen">
+            <div class="ph-status"><span class="ph-app">HI, IT'S ME</span><span class="ph-dot">●</span></div>
+            <div class="ph-row">
+              <div class="ph-av">S</div>
+              <div><div class="ph-name">Sarah Chen</div><div class="ph-role">VP Partnerships · TechCorp</div></div>
+            </div>
+            <div class="bub bub-ai">Drafting follow-up from your meeting notes…</div>
+            <div class="bub bub-out">Hi Sarah, it's me, Jesse — great connecting today! Free for a call next week to continue our conversation?</div>
+            <button class="ph-btn"><svg viewBox="0 0 24 24" fill="currentColor" style="width:11px;height:11px"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>Send via WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- REMI -->
+<section class="remi-sec reveal">
+  <div class="remi-inner">
+    <div class="remi-left">
+      <div class="remi-intro">
+        <span class="remi-wave">👋</span>
+        <div class="remi-name"><span>Hi, it&#8217;s me —</span> Remi.</div>
+      </div>
+      <span class="remi-tag">Your relationship intelligence</span>
+      <h2 class="remi-h">Talk to your contacts.<br>Talk to your <em>data.</em></h2>
+      <p class="remi-p">Remi is <strong class="brand">Hi, It&#8217;s Me</strong>&#8217;s AI persona — available in Pro+ as a voice and chat assistant. Remi knows everyone in your circles, remembers every interaction, and tells you exactly what you need to know before every conversation.</p>
+      <ul class="remi-bullets">
+        <li>Ask Remi anything about your contacts — last conversation, open actions, company news</li>
+        <li>Voice mode: talk live and Remi briefs you in real time before a meeting</li>
+        <li>Remi surfaces who to reach out to today and exactly what to say</li>
+        <li>The more you use <strong class="brand">Hi, It&#8217;s Me</strong>, the smarter Remi gets</li>
+      </ul>
+      <div class="remi-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px"><path d="M12 2a2 2 0 012 2v4a2 2 0 01-4 0V4a2 2 0 012-2zm0 14a2 2 0 012 2v.5a2 2 0 01-4 0V18a2 2 0 012-2zm8-7h-.5a2 2 0 010-4H20a2 2 0 010 4zm-14 0h-.5a2 2 0 010-4H6a2 2 0 010 4zm11.07-5.07a2 2 0 010 2.83l-.35.35a2 2 0 01-2.83-2.83l.35-.35a2 2 0 012.83 0zM7.27 16.73a2 2 0 010 2.83l-.35.35a2 2 0 01-2.83-2.83l.35-.35a2 2 0 012.83 0zm9.46 0a2 2 0 012.83 0l.35.35a2 2 0 01-2.83 2.83l-.35-.35a2 2 0 010-2.83zM4.93 7.27a2 2 0 012.83 0l.35.35a2 2 0 01-2.83 2.83l-.35-.35a2 2 0 010-2.83z"/></svg>
+        Exclusive to Pro+
+      </div>
+    </div>
+    <div class="remi-chat reveal d2">
+      <div class="remi-chat-header">
+        <div class="remi-av">R</div>
+        <div>
+          <div class="remi-av-name">Remi</div>
+          <div class="remi-av-status">Online &amp; ready</div>
+        </div>
+      </div>
+      <div class="chat-msg">
+        <div class="chat-remi">Hi, it&#8217;s me — Remi. 👋<br>You have 3 relationships that need attention today.</div>
+      </div>
+      <div class="chat-msg">
+        <div class="chat-user">Tell me about Sarah Chen</div>
+      </div>
+      <div class="chat-clear"></div>
+      <div class="chat-msg" style="margin-top:8px">
+        <div class="chat-remi">Sarah Chen — VP Partnerships at TechCorp. You met at the conference, last week. You sent a WhatsApp follow-up the same day. No reply yet — it&#8217;s been 6 days. Her company announced a Series B last week. <strong>This is a good moment to reach out again.</strong></div>
+      </div>
+      <div class="chat-msg" style="margin-top:8px">
+        <div class="chat-user">Draft a message for her</div>
+      </div>
+      <div class="chat-clear"></div>
+      <div class="chat-msg" style="margin-top:8px">
+        <div class="chat-remi">On it. Drafting now with context from your meeting notes and her Series B announcement&#8230;</div>
+      </div>
+      <div class="chat-clear"></div>
+      <div class="chat-input">
+        <div class="chat-input-bar">Ask Remi anything&#8230;</div>
+        <div class="chat-send"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="feats">
+  <div class="wrap">
+    <div class="feat-grid">
+      <div class="feat reveal d1">
+        <div class="feat-ico">🎴</div>
+        <h3>Three capture modes</h3>
+        <p><strong>Scan</strong> a card with your camera. <strong>Type</strong> it manually. Or <strong>speak it</strong> — AI creates the record from your voice.</p>
+        <span class="feat-tag">Free</span>
+      </div>
+      <div class="feat reveal d2">
+        <div class="feat-ico">🌍</div>
+        <h3>8-language reply assist</h3>
+        <p>Paste any incoming message. The app identifies the sender and drafts a reply in the same language — your tone, their language.</p>
+        <span class="feat-tag">Free / Pro</span>
+      </div>
+      <div class="feat reveal d3">
+        <div class="feat-ico">📱</div>
+        <h3>Your digital card</h3>
+        <p>A personal QR code link. Anyone scans to save your contact — no app needed. Updates automatically when your info changes.</p>
+        <span class="feat-tag">Free</span>
+      </div>
+      <div class="feat reveal d1">
+        <div class="feat-ico">🎙️</div>
+        <h3>Meeting transcription</h3>
+        <p>Record any conversation. AI transcribes, extracts action items, and attaches notes to every participant automatically.</p>
+        <span class="feat-tag pro">Pro</span>
+      </div>
+      <div class="feat reveal d2">
+        <div class="feat-ico">📋</div>
+        <h3>Pre-meeting brief</h3>
+        <p>Before any important meeting: relationship history, open actions, talking points, and company context — ready in seconds.</p>
+        <span class="feat-tag pro">Pro</span>
+      </div>
+      <div class="feat reveal d3">
+        <div class="feat-ico">🔍</div>
+        <h3>Online presence lookup</h3>
+        <p>AI research of a contact&#8217;s digital footprint — social profiles, news, recent activity — before you reach out.</p>
+        <span class="feat-tag proplus">Pro+</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTELLIGENCE -->
+<section class="intel reveal">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center">
+      <span class="gold-rule"></span>
+      <span class="eyebrow">Relationship intelligence</span>
+      <h2 class="sec-h">Not a contacts app.<br>A relationship engine.</h2>
+      <p class="sec-sub">Every contact has a living health score. Every morning, a ranked list of exactly who needs your attention.</p>
+    </div>
+    <div class="intel-grid">
+      <div class="icard reveal d1">
+        <div class="icard-ico">📊</div>
+        <h3>Five relationship states</h3>
+        <p>Every contact auto-classified in real time based on your interaction history and goals.</p>
+        <div class="states">
+          <span class="state" style="background:rgba(34,197,94,.09);color:#22c55e;border-color:rgba(34,197,94,.2)">📈 Growing</span>
+          <span class="state" style="background:rgba(59,130,246,.09);color:#3b82f6;border-color:rgba(59,130,246,.2)">🤝 Stable</span>
+          <span class="state" style="background:rgba(245,158,11,.09);color:#f59e0b;border-color:rgba(245,158,11,.2)">⚠️ At Risk</span>
+          <span class="state" style="background:rgba(107,114,128,.09);color:#6b7280;border-color:rgba(107,114,128,.2)">💤 Dormant</span>
+          <span class="state" style="background:rgba(139,92,246,.09);color:#8b5cf6;border-color:rgba(139,92,246,.2)">🎯 Strategic</span>
+        </div>
+      </div>
+      <div class="icard reveal d2">
+        <div class="icard-ico">🎯</div>
+        <h3>Daily priority stack</h3>
+        <p>Every morning: 3–5 people ranked by urgency, with a plain-English reason and suggested action. Not noise — meaningful outreach.</p>
+      </div>
+      <div class="icard reveal d3">
+        <div class="icard-ico">🏁</div>
+        <h3>Networking goals</h3>
+        <p>Define what you&#8217;re building. Tag contacts as aligned. They rise to Strategic and float to the top of your daily stack.</p>
+      </div>
+      <div class="icard reveal d4">
+        <div class="icard-ico">🔗</div>
+        <h3>Intro path finder</h3>
+        <p>Want to reach someone you don&#8217;t know? The network graph finds mutual connections and suggests the warmest path.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="langs reveal">
+  <div class="wrap" style="text-align:center">
+    <span class="gold-rule"></span>
+    <span class="eyebrow">Multilingual</span>
+    <h2 class="sec-h" style="font-size:clamp(22px,3.2vw,36px);margin-top:12px">Stay in touch across<br>every language.</h2>
+    <div class="lang-row">
+      <div class="lang">🇺🇸<span>English</span></div>
+      <div class="lang">🇫🇷<span>Français</span></div>
+      <div class="lang">🇲🇦<span>العربية</span></div>
+      <div class="lang">🇪🇸<span>Español</span></div>
+      <div class="lang">🇩🇪<span>Deutsch</span></div>
+      <div class="lang">🇧🇷<span>Português</span></div>
+      <div class="lang">🇨🇳<span>中文</span></div>
+      <div class="lang">🇯🇵<span>日本語</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi reveal">
+  <div class="testi-head">
+    <span class="gold-rule"></span>
+    <span class="eyebrow">What people are saying</span>
+    <h2 class="sec-h" style="font-size:clamp(24px,3.5vw,40px);margin-top:12px">Real people,<br>real connections.</h2>
+  </div>
+  <div class="track-wrap">
+    <div class="track" id="carousel"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing reveal" id="pricing">
+  <div class="wrap">
+    <div class="price-intro">
+      <span class="gold-rule"></span>
+      <span class="eyebrow">Pricing</span>
+      <h2 class="sec-h" style="margin-top:12px">An investment<br>in your circles.</h2>
+      <p class="sec-sub" style="margin-top:12px">One lost connection can cost you a client, a partnership, or a friendship. For less than a coffee a month.</p>
+    </div>
+    <div class="price-grid">
+      <div class="pcard reveal d1">
+        <p class="ptier">Free</p>
+        <div class="pval">$<span style="font-size:46px;font-weight:700">0</span><sub>/mo</sub></div>
+        <p class="pnote">Always free — no card required</p>
+        <hr class="pdiv">
+        <ul class="plist">
+          <li><span class="chk">✓</span>5 card scans / month</li>
+          <li><span class="chk">✓</span>10 AI message drafts<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>5 AI chat queries<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>3 reply assists<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>Smart notes (3 per contact)</li>
+          <li><span class="chk">✓</span>1 digital card theme</li>
+          <li><span class="chk">✓</span>Relationship states &amp; scoring</li>
+        </ul>
+        <div class="pbtn pbtn-free" style="cursor:default">Coming Soon</div>
+      </div>
+      <div class="pcard pcard-pro reveal d2">
+        <p class="ptier" style="color:var(--gold)">Pro</p>
+        <div class="pval" style="color:var(--gold)"><sup>$</sup>3.99<sub>/mo</sub></div>
+        <p class="pnote">7-day free trial &nbsp;·&nbsp; $29.99/yr (save 37%)</p>
+        <hr class="pdiv">
+        <ul class="plist">
+          <li><span class="chk">✓</span>30 card scans / month</li>
+          <li><span class="chk">✓</span>50 AI message drafts<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>30 AI chat queries<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>20 reply assists<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>10 voice transcriptions<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>5 pre-meeting briefs<span class="plimit">/mo</span></li>
+          <li><span class="chk">✓</span>Company intelligence</li>
+          <li><span class="chk">✓</span>Meeting recording &amp; AI notes</li>
+          <li><span class="chk">✓</span>Daily priority stack</li>
+          <li><span class="chk">✓</span>Network graph &amp; intro paths</li>
+          <li><span class="chk">✓</span>Unlimited smart notes</li>
+          <li><span class="chk">✓</span>All 5 card themes</li>
+        </ul>
+        <div class="pbtn pbtn-pro" style="cursor:default">Coming Soon</div>
+      </div>
+      <div class="pcard pcard-plus reveal d3">
+        <p class="ptier" style="color:var(--purple)">Pro+</p>
+        <div class="pval" style="color:var(--purple)"><sup>$</sup>14.99<sub>/mo</sub></div>
+        <p class="pnote">7-day free trial &nbsp;·&nbsp; $149.99/yr (save 17%)</p>
+        <hr class="pdiv">
+        <ul class="plist">
+          <li><span class="chk chk-pu">✓</span><strong>Unlimited everything</strong> in Pro</li>
+          <li><span class="chk chk-pu">✓</span>Remi — AI voice &amp; chat persona</li>
+          <li><span class="chk chk-pu">✓</span>LinkedIn &amp; online presence lookup</li>
+          <li><span class="chk chk-pu">✓</span>Full data export<span class="plimit"> CSV + vCard + JSON</span></li>
+          <li><span class="chk chk-pu">✓</span>Shared memories (team notes)</li>
+          <li><span class="chk chk-pu">✓</span>Unlimited contact photos</li>
+          <li><span class="chk chk-pu">✓</span>Priority AI processing</li>
+          <li><span class="chk chk-pu">✓</span>Cloud sync &amp; backup</li>
+        </ul>
+        <div class="pbtn pbtn-plus" style="cursor:default">Coming Soon</div>
+      </div>
+    </div>
+    <p class="price-foot">Pro annual saves 37%. Pro+ annual saves 17%. <strong>All plans include a 7-day free trial.</strong></p>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="vision reveal">
+  <span class="gold-rule"></span>
+  <p class="vision-q">We&#8217;re not building another platform to collect contacts. We&#8217;re building the first tool that helps you truly show up for the people in your circles — in any language, at the right moment, every time.</p>
+  <p class="vision-cap">Your circles are your most valuable asset.</p>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta reveal" id="download">
+  <h2>Your circles<br>deserve <em>better.</em></h2>
+  <p>Download free. Your first follow-up will take 10 seconds. The connection you save might change everything.</p>
+  <div class="hero-cta" style="cursor:default;opacity:.9;animation:none">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Coming Soon on iOS
+  </div>
+  <p class="investor">Investors: <a href="/cdn-cgi/l/email-protection#6a020f0606052a0203031e19070f440b03"><span class="__cf_email__" data-cfemail="1179747d7d7e5179787865627c743f7078">[email&#160;protected]</span></a></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand">
+    <img src="assets/me_logo_white_transparent.png" alt="Hi, It's Me">
+    <span>© 2026 Hi, It's Me &nbsp;·&nbsp; Built in Casablanca &nbsp;·&nbsp; For the world</span>
+  </div>
+  <div class="foot-links">
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="/cdn-cgi/l/email-protection#ee868b828281ae8687879a9d838bc08f87">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* Preload logo image so it renders instantly when needed */
+(function(){
+  var img = new Image();
+  img.src = 'assets/me_logo_white_transparent.png';
+})();
+
+/* Theme */
+function toggleTheme(){
+  var h=document.documentElement;
+  var n=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',n);
+  document.querySelector('.theme-btn').textContent=n==='dark'?'☀️':'🌙';
+  localStorage.setItem('him-theme',n);
+}
+(function(){
+  var s=localStorage.getItem('him-theme');
+  if(s){document.documentElement.setAttribute('data-theme',s);document.querySelector('.theme-btn').textContent=s==='dark'?'☀️':'🌙';}
+})();
+
+/* Reveal */
+(function(){
+  var io=new IntersectionObserver(function(e){
+    e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('show');io.unobserve(x.target);}});
+  },{threshold:0});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  setTimeout(function(){
+    document.querySelectorAll('.reveal').forEach(function(el){
+      if(el.getBoundingClientRect().top<window.innerHeight+60) el.classList.add('show');
+    });
+  },120);
+})();
+
+/* Cinematic — diverse & global, greeting matches the language */
+(function(){
+  /*
+   * Each entry: [greeting, name]
+   * Greeting is in the same language as the name.
+   * Non-Latin scripts mixed naturally — no labels, no flags.
+   * Ends: last greeting fades, logo appears — no "Me" text.
+   */
+  var seq = [
+    // Opening English — slow, establishes the concept
+    ["Hi, it’s", "Jesse"],
+    ["Hi, it’s", "Sarah"],
+    ["Hi, it’s", "James"],
+    // Arabic surprise
+    ["مرحبا، أنا", "فاطمة"],
+    // Back to English
+    ["Hi, it’s", "Carlos"],
+    ["Hi, it’s", "Maria"],
+    // Chinese
+    ["嗨，我是", "小明"],
+    // English
+    ["Hi, it’s", "Omar"],
+    ["Hi, it’s", "Priya"],
+    // Japanese
+    ["やあ、わたしは", "ゆき"],
+    // English
+    ["Hi, it’s", "Ana"],
+    ["Hi, it’s", "David"],
+    // Arabic
+    ["مرحبا، أنا", "خالد"],
+    // English
+    ["Hi, it’s", "Sofia"],
+    // Chinese
+    ["嗨，我是", "慕莉"],
+    // English — accelerating to finish
+    ["Hi, it’s", "Marco"],
+    ["Hi, it’s", "Nina"],
+    ["Hi, it’s", "Leila"],
+    ["Hi, it’s", "Grace"],
+    ["Hi, it’s", "Karim"],
+    ["Hi, it’s", "Zara"],
+    ["Hi, it’s", "Kevin"],
+    ["Hi, it’s", "Alex"]
+  ];
+
+  var nameEl = document.getElementById('stage-name');
+  var greet  = document.getElementById('greeting');
+  var stage  = document.getElementById('stage');
+  var logo   = document.getElementById('stage-logo');
+  var body   = document.getElementById('hero-body');
+  var hero   = document.getElementById('hero');
+  var cue    = document.getElementById('scroll-cue');
+  if(!nameEl||!stage) return;
+
+  // Set first entry
+  greet.textContent  = seq[0][0];
+  nameEl.textContent = seq[0][1];
+  setTimeout(function(){ greet.classList.add('show'); }, 280);
+  nameEl.style.opacity = '1';
+
+  var idx = 1, holdMs = 820, last = null, phase = 'hold', running = true;
+
+  function tick(ts){
+    if(!running) return;
+    if(!last) last = ts;
+    var dt = ts - last;
+
+    if(phase === 'hold'){
+      if(dt >= holdMs){
+        nameEl.style.opacity = '0';
+        greet.style.opacity  = '0.25';
+        phase = 'out'; last = ts;
+      }
+    } else {
+      if(dt >= 68){
+        if(idx < seq.length){
+          greet.textContent    = seq[idx][0];
+          nameEl.textContent   = seq[idx][1];
+          idx++;
+          nameEl.style.opacity = '1';
+          greet.style.opacity  = '1';
+          holdMs = Math.max(46, holdMs * 0.76);
+          phase  = 'hold'; last = ts;
+        } else {
+          // Sequence complete — fade both lines, then logo appears directly
+          running = false;
+          nameEl.style.transition = 'opacity .5s ease';
+          greet.style.transition  = 'opacity .5s ease';
+          nameEl.style.opacity    = '0';
+          greet.style.opacity     = '0';
+
+          // Logo fades in — it IS the "me"
+          setTimeout(function(){ logo.style.opacity = '1'; }, 120);
+
+          // Hold on logo — WOW moment — then reveal page
+          setTimeout(function(){
+            stage.classList.add('out');
+            setTimeout(function(){
+              hero.classList.add('compact');
+              body.classList.add('show');
+              if(cue) cue.style.opacity = '1';
+              document.querySelectorAll('.reveal').forEach(function(el){
+                el.classList.add('show');
+              });
+            }, 1000);
+          }, 3600);
+          return;
+        }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  setTimeout(function(){ last = null; requestAnimationFrame(tick); }, 900);
+})();
+
+/* Carousel */
+(function(){
+  var data = [
+    {s:5, q:"I scanned 47 cards at GITEX Africa. Every single one got a follow-up within 10 minutes of walking away. That's never happened before in my life.", n:"Rania B.", r:"Business Development · Casablanca"},
+    {s:5, q:"The French message it drafted for my contact in Paris was better than what I would have written myself. She wrote back the same day.", n:"Daniel O.", r:"Consultant · Lagos"},
+    {s:5, q:"I used to lose at least two good contacts every conference. Now I lose zero. The follow-up sends before I even leave the conversation.", n:"Priya S.", r:"Venture Capital · Dubai"},
+    {s:5, q:"My business partner introduced me to this app. Three months later I closed a deal with someone I would have completely forgotten.", n:"Marcus T.", r:"Entrepreneur · London"},
+    {s:5, q:"The relationship health feature is genuinely useful. I didn't realise I'd gone 60 days without reaching out to my best client until it flagged it.", n:"Yasmine K.", r:"Fintech Founder · Tunis"},
+    {s:5, q:"I work in Arabic, French, and English every single day. The multilingual drafting is the first AI feature that's actually saved me real time.", n:"Khalid A.", r:"Director · Marrakech"},
+    {s:5, q:"The pre-meeting brief had details I'd completely forgotten — notes I'd written three months ago. It changed how I prepared for the investor call.", n:"Elena V.", r:"Startup Founder · Madrid"},
+    {s:5, q:"The voice capture is what hooked me. I just say the person's name and details as I walk away from a conversation. Saved.", n:"James C.", r:"Sales Director · Nairobi"},
+    {s:4, q:"The network graph showed me I had five contacts at the same company and had never connected them. That insight alone paid for a year of Pro.", n:"Sofia M.", r:"Communications · Lisbon"},
+    {s:5, q:"My follow-up rate went from maybe 30% to basically 100%. The app makes it so fast you have no excuse not to do it.", n:"Omar F.", r:"Regional Manager · Rabat"},
+    {s:5, q:"Six months later I can open any contact and see exactly how we met, what we talked about, what I promised. Like having a personal assistant.", n:"Nadia H.", r:"Diplomat · Geneva"},
+    {s:5, q:"Sent a WhatsApp in Mandarin to a client in Shanghai straight from the app. She replied within the hour.", n:"Kevin L.", r:"Trade Advisor · Singapore"}
+  ];
+  var track=document.getElementById('carousel');
+  if(!track) return;
+  var all=data.concat(data);
+  all.forEach(function(d){
+    var stars='';
+    for(var i=0;i<5;i++) stars+=i<d.s?'★':'☆';
+    var c=document.createElement('div');
+    c.className='tcard';
+    c.innerHTML='<div class="tcard-stars">'+stars+'</div>'+
+      '<p class="tcard-text">'+d.q+'</p>'+
+      '<div class="tcard-meta">'+
+        '<div class="tcard-av">'+d.n[0]+'</div>'+
+        '<div><div class="tcard-name">'+d.n+'</div>'+
+        '<div class="tcard-role">'+d.r+'</div></div>'+
+      '</div>';
+    track.appendChild(c);
+  });
+})();
+</script>
+</body>
+</html>
